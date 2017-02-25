@@ -391,19 +391,9 @@ module Discordrb
     # @note Discord's API doesn't directly return the server when creating it, so this method
     #   waits until the data has been received via the websocket. This may make the execution take a while.
     # @param name [String] The name the new server should have. Doesn't have to be alphanumeric.
-    # @param region [Symbol] The region where the server should be created. Possible regions are:
-    #
-    #   * `:london`
-    #   * `:amsterdam`
-    #   * `:frankfurt`
-    #   * `:us-east`
-    #   * `:us-west`
-    #   * `:us-south`
-    #   * `:us-central`
-    #   * `:singapore`
-    #   * `:sydney`
+    # @param region [Symbol] The region where the server should be created, for example 'eu-central' or 'hongkong'.
     # @return [Server] The server that was created.
-    def create_server(name, region = :london)
+    def create_server(name, region = :'eu-central')
       response = API::Server.create(token, name, region)
       id = JSON.parse(response)['id'].to_i
       sleep 0.1 until @servers[id]
